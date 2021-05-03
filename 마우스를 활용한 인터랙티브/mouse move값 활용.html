@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>test</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            position: relative;
+            background-color: black;
+            cursor: none;
+        }
+        h1 {
+            color: #fff;
+        }
+        .cursor_item {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            top:0;
+            left:0;
+        }
+    </style>
+</head>
+    <script>
+        let x = 0;
+        let y = 0;
+        let cursor_item;
+        let mx = 0;
+        let my = 0;
+        let speed = 0.1;
+
+        window.onload = function(){
+            let h1 = document.getElementsByTagName('h1')[0];
+            // let h1 = document.querySelector('h1'); 도 된다
+            cursor_item = document.getElementsByClassName('cursor_item')[0];
+
+        // 마우스의 위치에 따른 X, Y값의 좌표를 보여주는 코드
+        window.addEventListener('mousemove',mouseFunc, false);
+
+        function mouseFunc(e){
+            x = e.clientX;
+            y = e.clientY;
+
+            h1.innerHTML = `x: ${x} y: ${y}`;
+            // console.log(e.clientX, e.clientY);
+
+            }
+
+            loop();
+        }
+
+        // let i = 0;
+        function loop(){
+            // console.log(i += 1);
+            mx += (x - mx) * speed;     // 일종의 공식이다 웬만하면 외우자
+            my += (y - my) * speed;
+            // console.log(x, mx);
+            // console.log(y, my);
+
+            cursor_item.style.transform = "translate("+ mx + "px," + my + "px)";
+            window.requestAnimationFrame(loop);
+        }
+
+        /* 위 코드를 아래와 같이 바꿀 수 있음
+
+        window.addEventListener('mousemove', (event)=>{
+
+        const h1 = document.querySelector('h1');
+        const cursor_item = document.querySelector('.cursor_item');
+
+        h1.innerHTML = `x: ${event.clientX} y: ${event.clientY}`;
+        cursor_item.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
+        });
+
+        */
+
+    </script>
+<body>
+    <h1>test</h1>
+    <div class="cursor_item"></div>
+</body>
+</html>

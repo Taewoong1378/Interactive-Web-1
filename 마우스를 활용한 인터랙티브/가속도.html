@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>test</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            position: relative;
+            background-color: black;
+        }
+        h1 {
+            color: #fff;
+        }
+        .cursor_item {
+            position: fixed;  /*absolute와 비슷하다고 보면됨*/
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            top:0;
+            left:0;
+            margin: -50px 0 0 -50px;    
+            /* 마진을 안주면 마우스 클릭했을 때, top: 0, left: 0 기준으로 박스가 움직인다. 마진을 주면 중앙을 기준으로 이동 */
+
+            transition: all 500ms cubic-bezier(0.800, 0.000, 0.245, 1.000);
+            /* 조금 부드럽게 이동 */
+            /*ease, ease-in, ease-in-out 등 있음*/
+            /*https://matthewlein.com/tools/ceaser*/
+            /* 위 사이트에서 cubic-bezier값 조정해서 가져오기 */
+
+        }
+        button {
+            font-size: 40px;
+            font-weight: bold;
+            background-color: #fff;
+            color: red;
+            padding: 30px 80px;
+            margin: 50px;
+            cursor: pointer;
+            transition: all .5s ease;
+            /* cubic-bezier(0.800, 0.000, 0.245, 1.000); */
+        }
+        button:hover {
+            background-color: red;
+            color: #fff;
+            padding: 100px 150px;
+            font-size: 80px;
+        }
+    </style>
+</head>
+    <script>
+        let x = 0;
+        let y = 0;
+        let cursor_item;
+        let mx = 0;
+        let my = 0;
+        let speed = 0.1;
+
+        window.onload = function(){
+            let h1 = document.getElementsByTagName('h1')[0];
+            // let h1 = document.querySelector('h1'); 도 된다
+            cursor_item = document.getElementsByClassName('cursor_item')[0];
+
+        // 마우스의 위치에 따른 X, Y값의 좌표를 보여주는 코드
+        // 마우스 클릭 위치에 따라 박스 이동함
+        window.addEventListener('click',mouseFunc, false);
+
+        function mouseFunc(e){
+            x = e.clientX;
+            y = e.clientY;
+            cursor_item.style.transform = "translate("+ x + "px," + y + "px)";
+
+            h1.innerHTML = `x: ${x} y: ${y}`;
+            // console.log(e.clientX, e.clientY);
+
+            }
+
+            // loop();
+        }
+
+        // let i = 0;
+        // function loop(){
+        //     // console.log(i += 1);
+        //     mx += (x - mx) * speed;     // 일종의 공식이다 웬만하면 외우자
+        //     my += (y - my) * speed;
+        //     // console.log(x, mx);
+        //     // console.log(y, my);
+
+        //     cursor_item.style.transform = "translate("+ mx + "px," + my + "px)";
+        //     window.requestAnimationFrame(loop);
+        // }
+
+        /* 위 코드를 아래와 같이 바꿀 수 있음
+
+        window.addEventListener('mousemove', (event)=>{
+
+        const h1 = document.querySelector('h1');
+        const cursor_item = document.querySelector('.cursor_item');
+
+        h1.innerHTML = `x: ${event.clientX} y: ${event.clientY}`;
+        cursor_item.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
+        });
+
+        */
+
+    </script>
+<body>
+    <h1>test</h1>
+    <div class="cursor_item"></div>
+    <button type="button">START</button>
+</body>
+</html>
